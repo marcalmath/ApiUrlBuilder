@@ -42,7 +42,7 @@ public class UrlBuilderService
         }
         return $"http://localhost:{config.Porta}/api/{versao}/{config.Ambiente}/{endpoint}";
     }
-
+    
     private string MontarUrlComParametros(string baseUrl, ApiConfig config)
     {
         var parametros = new Dictionary<string, string>();
