@@ -18,7 +18,7 @@ public class UrlBuilderService
             { ApiProcesso.ConsultarXml, new ApiEndpoint("invent/docs/consultar/xml")},
             { ApiProcesso.RetransmitirNota, new ApiEndpoint("invent/docs/retransmitir")},
             { ApiProcesso.CancelarNota, new ApiEndpoint("invent/docs/cancelar")},
-            { ApiProcesso.EntidadesEmissoras, new ApiEndpoint("invent/docs/entidadesemissoras")}
+            { ApiProcesso.EntidadesEmissoras, new ApiEndpoint("invent/docs/consultar/entidadesemissoras")}
         };
         
     public string BuildUrl(ApiProcesso processo, ApiConfig config)
