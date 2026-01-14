@@ -10,6 +10,17 @@ namespace ApiUrlBuilder.Services;
 
 public class UrlBuilderService
 {
+    private readonly Dictionary<ApiProcesso, ApiEndpoint> _endpoint =
+        new Dictionary<ApiProcesso, ApiEndpoint>
+        {
+            { ApiProcesso.ConsultarNotas, new ApiEndpoint("invent/docs/consultar")},
+            { ApiProcesso.ConsultarPdf, new ApiEndpoint("invent/docs/consultar/pdf")},
+            { ApiProcesso.ConsultarXml, new ApiEndpoint("invent/docs/consultar/xml")},
+            { ApiProcesso.RetransmitirNota, new ApiEndpoint("invent/docs/retransmitir")},
+            { ApiProcesso.CancelarNota, new ApiEndpoint("invent/docs/cancelar")},
+            { ApiProcesso.EntidadesEmissoras, new ApiEndpoint("invent/docs/entidadesemissoras")}
+        };
+        
     public string BuildUrl(ApiProcesso processo, ApiConfig config)
     {
         string baseUrl = MontarBaseUrl(config);
@@ -18,8 +29,9 @@ public class UrlBuilderService
         return UrlComParametros;
     }
 
-    private string MontarBaseUrl(ApiConfig config) // Refazer com dicionário para implementar todas os endpoints
+    private string MontarBaseUrl(ApiConfig config)
     {
+        /*
         string versao;
         string endpoint;
 
@@ -40,7 +52,8 @@ public class UrlBuilderService
             default:
                 throw new Exception("A consulta escolhida não é suportada.");
         }
-        return $"http://localhost:{config.Porta}/api/{versao}/{config.Ambiente}/{endpoint}";
+        */
+        return $"http://localhost:{config.Porta}/api/v3/{config.Ambiente}/{endpoint}";
     }
     
     private string MontarUrlComParametros(string baseUrl, ApiConfig config)

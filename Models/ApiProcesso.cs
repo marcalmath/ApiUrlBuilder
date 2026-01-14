@@ -10,5 +10,8 @@ public enum ApiProcesso
 {
     ConsultarNotas,
     ConsultarPdf,
-    ConsultarXml
+    ConsultarXml,
+    RetransmitirNota,
+    CancelarNota,
+    EntidadesEmissoras
 }

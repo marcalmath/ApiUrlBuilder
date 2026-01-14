@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ApiUrlBuilder.Models
+namespace ApiUrlBuilder.Models;
+public class ApiEndpoint
 {
-    public enum ApiEndpoint
+    public string Endpoint { get; }
+
+    public ApiEndpoint(string endpoint)
     {
-        consultarNotas,
-        consultarPdf,
-        consultarXml
+        Endpoint = endpoint;
     }
 }
