@@ -23,37 +23,20 @@ public class UrlBuilderService
         
     public string BuildUrl(ApiProcesso processo, ApiConfig config)
     {
-        string baseUrl = MontarBaseUrl(config);
+        string baseUrl = MontarBaseUrl(processo, config);
         string UrlComParametros = MontarUrlComParametros(baseUrl, config);
 
         return UrlComParametros;
     }
 
-    private string MontarBaseUrl(ApiConfig config)
+    private string MontarBaseUrl(ApiProcesso processo, ApiConfig config)
     {
-        /*
-        string versao;
-        string endpoint;
-
-        switch (config.Processo)
+        if(!_endpoint.TryGetValue(processo, out var apiEndpoint))
         {
-            case ApiProcesso.ConsultarNotas:
-                versao = "v2";
-                endpoint = "invent/docs/consultar";
-                break;
-            case ApiProcesso.ConsultarPdf:
-                versao = "v2";
-                endpoint = "invent/docs/consultar/pdf";
-                break;
-            case ApiProcesso.ConsultarXml:
-                versao = "v2";
-                endpoint = "invent/docs/consultar/xml";
-                break;
-            default:
-                throw new Exception("A consulta escolhida não é suportada.");
+            throw new ArgumentException($"Endpoint não encontrado para o processo: {processo}");
         }
-        */
-        return $"http://localhost:{config.Porta}/api/v3/{config.Ambiente}/{endpoint}";
+
+        return $"http://localhost:{config.Porta}/api/v3/{config.Ambiente}/{apiEndpoint}";
     }
     
     private string MontarUrlComParametros(string baseUrl, ApiConfig config)
@@ -69,10 +52,8 @@ public class UrlBuilderService
         if (!string.IsNullOrWhiteSpace(config.Chave))
             parametros.Add("chave", config.Chave.ToString());
 
-        if (!parametros.Any())//usar count ?!
+        if (!parametros.Any())
             return baseUrl;
-
-        //if(parametros is {Count:>0}) // Syntactic Sugar
 
         var queryString = string.Join("&", parametros.Select(p => $"{p.Key}={Uri.EscapeDataString(p.Value)}"));
 
