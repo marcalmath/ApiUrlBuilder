@@ -14,9 +14,8 @@ public partial class MainForm : Form
 
     private void MainForm_Load(object sender, EventArgs e)
     {
-        cmbModelo.Items.Add(55);
-        cmbModelo.Items.Add(65);
-
+        cmbModelo.DataSource = Enum.GetValues(typeof(ModeloFiscal));
+        
         cmbModelo.SelectedIndex = 0;
     }
 

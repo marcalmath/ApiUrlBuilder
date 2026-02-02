@@ -23,20 +23,20 @@ public class UrlBuilderService
         
     public string BuildUrl(ApiProcesso processo, ApiConfig config)
     {
-        string baseUrl = MontarBaseUrl(processo, config);
+        string baseUrl = MontarUrlBase(processo, config);
         string UrlComParametros = MontarUrlComParametros(baseUrl, config);
 
         return UrlComParametros;
     }
 
-    private string MontarBaseUrl(ApiProcesso processo, ApiConfig config)
+    private string MontarUrlBase(ApiProcesso processo, ApiConfig config)
     {
         if(!_endpoint.TryGetValue(processo, out var apiEndpoint))
         {
             throw new ArgumentException($"Endpoint não encontrado para o processo: {processo}");
         }
 
-        return $"http://localhost:{config.Porta}/api/v3/{config.Ambiente}/{apiEndpoint}";
+        return $"http://localhost:{config.Porta}/api/v3/{config.Ambiente}/{apiEndpoint.Endpoint}";
     }
     
     private string MontarUrlComParametros(string baseUrl, ApiConfig config)
